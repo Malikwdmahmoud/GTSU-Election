@@ -1,4 +1,3 @@
-from pydantic import BaseSettings, EmailStr
 from fastapi import FastAPI, Request, Form, UploadFile, File, Depends, HTTPException, status
 from fastapi.responses import HTMLResponse, RedirectResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -10,8 +9,6 @@ from sqlalchemy.orm import Session
 import os
 import uuid
 from pathlib import Path
-from pydantic import EmailStr
-from pydantic_settings import BaseSettings
 
 Base.metadata.create_all(bind=engine)
 
