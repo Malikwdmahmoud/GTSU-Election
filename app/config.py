@@ -1,10 +1,11 @@
-from pydantic import BaseSettings, EmailStr
+from pydantic import EmailStr
+from pydantic_settings import BaseSettings
 from typing import Set
 
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "نظام الترشح لانتخابات اتحاد طلاب الموهبة والتميز"
-    ADMIN_EMAIL: EmailStr = "admin@example.com"
+    ADMIN_EMAIL: EmailStr = "gtsu.election.com"
     SMTP_HOST: str = "localhost"
     SMTP_PORT: int = 25
     SMTP_USER: str = ""
