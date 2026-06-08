@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request, Form, UploadFile, File, Depends, HTTPExcep
 from fastapi.responses import HTMLResponse, RedirectResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+import jinja2
 from .config import settings
 from .database import engine, Base, get_db
 from . import models, crud, utils
@@ -15,6 +16,15 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(title=settings.PROJECT_NAME)
 app.mount("/static", StaticFiles(directory=str(Path(__file__).parent / "static")), name="static")
 templates = Jinja2Templates(directory=str(Path(__file__).parent / "templates"))
+# Create a Jinja2 Environment with caching disabled to avoid unhashable globals cache keys
+try:
+    loader = templates.env.loader
+    autoescape = templates.env.autoescape
+    env = jinja2.Environment(loader=loader, autoescape=autoescape, cache_size=0)
+    templates.env = env
+except Exception:
+    # if anything goes wrong, keep the default env
+    pass
 
 
 def gen_ref(prefix: str = "IND"):
