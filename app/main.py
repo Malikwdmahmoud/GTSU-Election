@@ -1,3 +1,4 @@
+from cherrypy import request
 from fastapi import FastAPI, Request, Form, UploadFile, File, Depends, HTTPException, status
 from fastapi.responses import HTMLResponse, RedirectResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -33,7 +34,7 @@ def gen_ref(prefix: str = "IND"):
 
 @app.get("/", response_class=HTMLResponse)
 def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "project": settings.PROJECT_NAME})
+    return templates.TemplateResponse(request, "index.html", {"project": settings.PROJECT_NAME})
 
 
 @app.get("/apply/individual", response_class=HTMLResponse)
