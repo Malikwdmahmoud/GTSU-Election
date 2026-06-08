@@ -43,6 +43,15 @@ export ADMIN_PASSWORD=your-secure-password
 uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 
+تشغيل باستخدام Docker (يوفر بيئة Python 3.11 مستقرة):
+
+```bash
+# بناء الصورة
+docker build -t gtsu-election .
+# تشغيل الحاوية
+docker run -p 8000:8000 --env ADMIN_EMAIL=admin@domain.com --env ADMIN_PASSWORD=StrongPass gtsu-election
+```
+
 تغيير البريد الإداري
 -------------------
 يمكن تغيير البريد في الملف `app/config.py` أو عن طريق تعيين المتغير البيئي `ADMIN_EMAIL` قبل تشغيل التطبيق.
