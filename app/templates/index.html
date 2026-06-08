@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="text-center p-4 bg-white rounded shadow-sm">
+    <h1 class="mb-3">نظام الترشح لانتخابات اتحاد طلاب الموهبة والتميز</h1>
+    <p class="lead">مرحباً بكم في نظام الترشح الإلكتروني لانتخابات اتحاد طلاب الموهبة والتميز. يرجى اختيار نوع الترشح وإكمال البيانات المطلوبة بدقة.</p>
+    <div class="d-flex justify-content-center gap-3 mt-4">
+      <a href="/apply/individual" class="btn btn-lg btn-outline-primary">الترشح كفرد مستقل</a>
+      <a href="/apply/list" class="btn btn-lg btn-primary">الترشح كقائمة</a>
+    </div>
+  </div>
+{% endblock %}

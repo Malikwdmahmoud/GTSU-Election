@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h4>تسجيل دخول المسؤول</h4>
+          {% if error %}<div class="alert alert-danger">{{ error }}</div>{% endif %}
+          <form method="post" action="/admin/login">
+            <div class="mb-3"><input name="username" class="form-control" placeholder="المستخدم"></div>
+            <div class="mb-3"><input name="password" type="password" class="form-control" placeholder="كلمة المرور"></div>
+            <button class="btn btn-primary">دخول</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

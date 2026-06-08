@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">الترشح كقائمة</h3>
+    {% if error %}
+      <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+    <form method="post" action="/submit/list" enctype="multipart/form-data" id="listForm">
+      <div class="mb-3">
+        <label class="form-label">اسم القائمة</label>
+        <input name="list_name" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">رقم هاتف مسؤول القائمة</label>
+        <input name="contact_phone" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">ملاحظات (اختياري)</label>
+        <textarea name="notes" class="form-control"></textarea>
+      </div>
+
+      <h5 class="mt-4">أعضاء القائمة (25)</h5>
+      <p>يجب إدخال بيانات جميع الأعضاء الـ 25 لتفعيل زر الإرسال.</p>
+      <div id="membersContainer"></div>
+
+      <div class="d-flex justify-content-between mt-3">
+        <a href="/" class="btn btn-secondary">رجوع</a>
+        <button id="submitBtn" class="btn btn-primary" disabled>إرسال القائمة</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const MAX = 25;
+  const container = document.getElementById('membersContainer');
+  for (let i = 0; i < MAX; i++) {
+    const card = document.createElement('div');
+    card.className = 'card mb-2';
+    card.innerHTML = `
+      <div class="card-body">
+        <h6>عضو رقم ${i+1}</h6>
+        <div class="row">
+          <div class="col-md-6 mb-2"><input name="member_${i}_full_name" class="form-control" placeholder="الاسم الرباعي" required></div>
+          <div class="col-md-6 mb-2"><input name="member_${i}_phone" class="form-control" placeholder="رقم الهاتف" required></div>
+          <div class="col-md-6 mb-2"><input name="member_${i}_batch" class="form-control" placeholder="الدفعة" required></div>
+          <div class="col-md-6 mb-2">
+            <select name="member_${i}_school" class="form-select" required>
+              {% for s in schools %}
+                <option value="{{ s }}">{{ s }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6 mb-2">
+            <label class="form-label">إثبات الشخصية (PDF,JPG,PNG)</label>
+            <input name="member_${i}_id" type="file" accept=".pdf,image/*" class="form-control" required>
+          </div>
+          <div class="col-md-6 mb-2">
+            <label class="form-label">الصورة الشخصية (JPG,PNG)</label>
+            <input name="member_${i}_photo" type="file" accept="image/*" class="form-control" required>
+          </div>
+        </div>
+      </div>`;
+    container.appendChild(card);
+  }
+
+  // enable submit when all required inputs have value (simple client-side check)
+  const form = document.getElementById('listForm');
+  const submitBtn = document.getElementById('submitBtn');
+  form.addEventListener('change', () => {
+    const inputs = form.querySelectorAll('input[required], select[required]');
+    let ok = true;
+    inputs.forEach(i => { if (!i.value) ok = false; });
+    submitBtn.disabled = !ok;
+  });
+</script>
+
+{% endblock %}

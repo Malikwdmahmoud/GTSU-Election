@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+  <div class="card-body">
+    <h3 class="card-title">الترشح كفرد مستقل</h3>
+    {% if error %}
+      <div class="alert alert-danger">{{ error }}</div>
+    {% endif %}
+    <form method="post" action="/submit/individual" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label class="form-label">الاسم الرباعي</label>
+        <input name="full_name" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">رقم الهاتف</label>
+        <input name="phone" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">الدفعة</label>
+        <input name="batch" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">المدرسة</label>
+        <select name="school" class="form-select" required>
+          {% for s in schools %}
+            <option value="{{ s }}">{{ s }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">الملاحظات (اختياري)</label>
+        <textarea name="notes" class="form-control"></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">رفع إثبات الشخصية (PDF, JPG, PNG) - الحد {{ 5 }}MB</label>
+        <input name="id_file" type="file" accept=".pdf,image/*" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">رفع الصورة الشخصية (JPG, PNG)</label>
+        <input name="photo_file" type="file" accept="image/*" class="form-control" required>
+      </div>
+      <div class="d-flex justify-content-between">
+        <a href="/" class="btn btn-secondary">رجوع</a>
+        <button class="btn btn-primary">إرسال الطلب</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

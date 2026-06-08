@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h3>لوحة الإدارة</h3>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="card p-3">
+        <div>عدد المرشحين الأفراد</div>
+        <h4>{{ stats.individuals }}</h4>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-3">
+        <div>عدد القوائم</div>
+        <h4>{{ stats.lists }}</h4>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card p-3">
+        <div>عدد أعضاء القوائم</div>
+        <h4>{{ stats.members }}</h4>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <h5>آخر الطلبات الفردية</h5>
+  <ul class="list-group mb-3">
+    {% for c in individuals[:10] %}
+      <li class="list-group-item">{{ c.full_name }} - {{ c.phone }} - {{ c.school }} - <a href="/uploads/{{ c.id_file.stored_name }}">ملف الهوية</a></li>
+    {% endfor %}
+  </ul>
+
+  <h5>آخر القوائم</h5>
+  <ul class="list-group">
+    {% for l in lists[:10] %}
+      <li class="list-group-item">{{ l.list_name }} - {{ l.contact_phone }} - أعضاء: {{ l.members|length }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
