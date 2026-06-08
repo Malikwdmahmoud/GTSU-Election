@@ -1,10 +1,5 @@
-try:
-    # Prefer pydantic v2 + pydantic-settings
-    from pydantic import EmailStr
-    from pydantic_settings import BaseSettings
-except Exception:
-    # Fallback for pydantic v1
-    from pydantic import BaseSettings, EmailStr
+from pydantic import EmailStr
+from pydantic_settings import BaseSettings
 from typing import Set
 
 
